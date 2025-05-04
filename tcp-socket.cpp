@@ -20,7 +20,7 @@ void TCPSocket::connect(const Endpoint &server) {
   if (::connect(local_socket.get_socket_descriptor(),
                 (sockaddr *)&server.sockaddr(), server.size()) < 0)
     throw std::system_error(errno, std::generic_category(),
-                            "Error cconnecting to server");
+                            "Error connecting to server");
 }
 
 ssize_t TCPSocket::send(const void *data, size_t length) {
@@ -43,7 +43,7 @@ void TCPSocket::listen(size_t queue_len) {
 
 std::unique_ptr<TCPSocket> TCPSocket::accept() {
   if (local_socket.get_socket_descriptor() < 0) {
-    throw std::runtime_error("Invalid socket descriptor for accepting");
+    throw std::runtime_error("Invalid socket descriptor");
   }
   sockaddr_in client_addr;
   socklen_t client_len = sizeof(client_addr);

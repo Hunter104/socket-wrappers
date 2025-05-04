@@ -20,7 +20,6 @@ public:
   TCPSocket(std::string_view address, int port);
   TCPSocket(int fd, const Endpoint &endpoint);
   TCPSocket() : TCPSocket("0.0.0.0", 0) {}
-  ~TCPSocket();
 
   void connect(const Endpoint &server);
   ssize_t send(const void *data, size_t length);

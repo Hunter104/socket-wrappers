@@ -18,7 +18,6 @@ private:
 public:
   UDPSocket(std::string_view address, int port);
   UDPSocket() : UDPSocket("0.0.0.0", 0) {}
-  ~UDPSocket();
 
   ssize_t send(const void *data, size_t length, const Endpoint &dest);
   ssize_t send(const std::string &message, const Endpoint &destination);
