@@ -1,6 +1,8 @@
 #include "base-socket.h"
+#include <arpa/inet.h>
 #include <cstdint>
 #include <stddef.h>
+#include <stdexcept>
 #include <string_view>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -10,7 +12,13 @@
 Endpoint::Endpoint(std::string_view address, uint16_t port)
     : address_(address), port_(port) {
   addr_.sin_family = AF_INET;
-  addr_.sin_addr.s_addr = inet_addr(address_.c_str());
+  int rc = inet_pton(AF_INET, address_.c_str(), &addr_.sin_addr.s_addr);
+  if (rc == 0)
+    throw std::runtime_error("Invalid IP Address");
+  if (rc == -1)
+    throw std::system_error(errno, std::generic_category(),
+                            "Failed to bind ip address");
+
   addr_.sin_port = htons(port_);
 }
 
