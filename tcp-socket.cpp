@@ -75,3 +75,14 @@ std::string TCPSocket::receive_string(size_t max_length) {
 
   return message;
 }
+
+extern template ssize_t TCPSocket::send_as<int>(int);
+extern template int TCPSocket::receive_as<int>();
+extern template ssize_t TCPSocket::send_as<float>(float);
+extern template float TCPSocket::receive_as<float>();
+extern template ssize_t TCPSocket::send_as<double>(double);
+extern template double TCPSocket::receive_as<double>();
+extern template ssize_t TCPSocket::send_as<uint32_t>(uint32_t);
+extern template uint32_t TCPSocket::receive_as<uint32_t>();
+extern template ssize_t TCPSocket::send_as<uint64_t>(uint64_t);
+extern template uint64_t TCPSocket::receive_as<uint64_t>();
